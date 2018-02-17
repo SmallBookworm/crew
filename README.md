@@ -6,13 +6,14 @@
 
 <h2 id="1">快速开始</h2>
 
+*整个项目在example文件夹中*
 ### 1.所需工具
 * Node.js
-*  Crew.js
+* Crew.js
 * webpack
-* Chrome浏览器
+* Google Chrome
 ### 2.初始化项目
-在项目文文件夹中通过npm来初始化项目：
+在项目文文件夹中通过npm来初始化项目，在终端中进入项目文件夹后运行：
 
     npm init
 配置好以后创建index.js。
@@ -27,7 +28,7 @@
       "devDependencies": {
         "webpack": "^3.10.0"
       }
-或者直接使用全局安装的webpack也可以。引用完毕之后安装：
+或者直接使用全局安装的webpack也可以。引用完毕之后在终端中运行安装命令：
 
     npm install
 ### 4.webpack配置
@@ -45,3 +46,54 @@
 打开index.js文件，导入用到的库：
 
     import {Scheduler, downloadMoudle, MataState} from 'crewjs'
+创建爬虫对象：
+
+    let scheduler = new Scheduler(33);
+创建爬取函数：
+
+    function createPromise() {
+        let url="https://github.com/";
+        let xhr = new XMLHttpRequest();
+        return new Promise(function (resolve, reject) {
+            //method，address，async
+            xhr.open('GET', url, true);
+            xhr.responseType = "document";
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    //attention:it is not responseText
+                    let doc = xhr.response;
+                    if (doc) {
+                        resolve(doc);
+                    } else {
+                        reject("parser document faily");
+                    }
+                } else {
+                    reject("status!=200");
+                }
+            };
+            xhr.onerror = function (e) {
+                reject(e);
+            };
+            xhr.send();
+        })
+    }
+初始化爬虫对象：
+
+    scheduler.init(createPromise,function (id) {
+        let mata=scheduler.getMata(id);
+        if(mata.state===MataState.FINISH){
+            console.log(mata.data);
+        }else {
+            console.log('fail');
+        }
+    });
+开始爬取：
+
+    scheduler.start();
+### 6.编译打包
+使用webpack生成runtime文件，在终端中输入：
+
+    webpack
+### 7.运行爬虫
+运行Chrome，在相关页面打开开发者工具将生成的runtime文件代码复制到console中运行。
