@@ -17,12 +17,12 @@
     npm init
 配置好以后创建index.js。
 ### 3.引用库
- 首先在package.json中依赖crew：
+ 首先在package.json中依赖crew：
 
       "dependencies": {
         "crewjs": "file:../crewjs"
       }
- 这里由于包在本地故通过相对路径引用。使用webpack来进行打包：
+ 这里由于包在本地故通过相对路径引用。使用webpack来进行打包：
 
       "devDependencies": {
         "webpack": "^3.10.0"
