@@ -1,6 +1,7 @@
 import {Scheduler, downloadMoudle, MataState} from 'crewjs'
 
 let scheduler = new Scheduler(33);
+//for debug in console
 window.scheduler = scheduler;
 
 function getURL(num, yxjbz) {
@@ -17,12 +18,14 @@ function factory(url) {
     return function () {
         let xhr = new XMLHttpRequest();
         return new Promise(function (resolve, reject) {
-            xhr.open('GET', url, true); //get请求，请求地址，是否异步
+            //method，address，async
+            xhr.open('GET', url, true);
             xhr.responseType = "document";
 
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    let doc = xhr.response; // 注意:不是oReq.responseText
+                    //attention:it is not responseText
+                    let doc = xhr.response;
                     if (doc) {
                         resolve(doc);
                     } else {
@@ -46,12 +49,12 @@ function getOtherData(tr) {
             let url = tr.firstElementChild.firstElementChild.href;
             let xhr = new XMLHttpRequest();
             return new Promise(function (resolve, reject) {
-                xhr.open('GET', url, true); //get请求，请求地址，是否异步
+                xhr.open('GET', url, true);
                 xhr.responseType = "document";
 
                 xhr.onload = function () {
                     if (xhr.status === 200) {
-                        let doc = xhr.response; // 注意:不是oReq.responseText
+                        let doc = xhr.response;
                         if (doc) {
                             resolve(doc);
                         } else {
@@ -107,7 +110,7 @@ scheduler.init(factory(getURL(0, 2)), function (id) {
             tbody.appendChild(trs[1]);
         }
     } else {
-        console.log('fail')
+        console.log('fail');
     }
 });
 for (let i = 1; i < 24; i++) {
