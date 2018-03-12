@@ -20,13 +20,15 @@ class Mata {
     fail(error) {
         this.error = error;
         this.state = FAIL;
-        this.bundle(this.id)
+        if (this.bundle)
+            this.bundle(this.id)
     }
 
     finish(res) {
         this.data = res;
         this.state = FINISH;
-        this.bundle(this.id)
+        if (this.bundle)
+            this.bundle(this.id)
     }
 }
 
