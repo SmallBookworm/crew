@@ -106,8 +106,9 @@ scheduler.init(factory(getURL(0, 2)), function (id) {
         let trs = doc.getElementsByTagName('table')[2].firstElementChild.children;
         let length = trs.length;
         for (let i = 0; i < length - 1; i++) {
-            getOtherData(trs[1]);
-            tbody.appendChild(trs[1]);
+            let trc=trs[j].cloneNode(true);
+            getOtherData(trc);
+            tbody.appendChild(trc);
         }
     } else {
         console.log('fail');
