@@ -12,7 +12,7 @@ class MataPool {
         this._amount = 0;
         this.max = max;
         this.endFunction = null;
-        this.eventListen=new Listener(this);
+        // this.eventListen=new Listener(this);
         this.resolve = this.resolve.bind(this);
         this.reject = this.reject.bind(this);
     }
